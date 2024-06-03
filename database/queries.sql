@@ -16,7 +16,13 @@ CREATE TABLE gastos (
     FOREIGN KEY (roommate_id) REFERENCES roommates(id) ON DELETE CASCADE
 );
 
-INSERT INTO roommates (id, nombre, debe, recibe) VALUES
+INSERT INTO roommates (nombre, debe, recibe) VALUES
+('nombre uno', 0, 0),
+('nombre dos', 0, 0),
+('nombre tres', 0, 0)
 
-INSERT INTO gastos (id, roommate_id, descripcion, monto) VALUES
-    
+
+INSERT INTO gastos (roommate_id, descripcion, monto) VALUES
+(1, 'descripcion uno', 100),
+(2, 'descripcion dos', 300),
+(3, 'descripcion tres', 200),

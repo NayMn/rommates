@@ -8,7 +8,7 @@ const allGastos = async (req, res) => {
         console.log(error);
         return res.status(500).json({
             ok: false,
-            error: 'error',
+            error: 'Error'
         });
     }
 };
@@ -16,14 +16,18 @@ const allGastos = async (req, res) => {
 const createGastos = async (req, res) => {
     const { roommate_id, descripcion, monto } = req.body;
 
+    if (!roommate_id || !descripcion || !monto) {
+        return res.status(400).json({ error: 'Todos los campos son necesarios' });
+    }
+
     try {
-        const gastoNew = await gastosModel.gastosAdd(roommate_id, descripcion, monto);
-        return res.status(200).json(gastoNew);
+        const gastoNuevo = await gastosModel.gastosAdd(roommate_id, descripcion, monto);
+        return res.status(201).json(gastoNuevo);
     } catch (error) {
         console.log(error);
         return res.status(500).json({
             ok: false,
-            error: 'error',
+            error: 'Error'
         });
     }
 };
@@ -37,7 +41,7 @@ const updateGastos = async (req, res) => {
         console.log(error);
         return res.status(500).json({
             ok: false,
-            error: 'error',
+            error: 'Error'
         });
     }
 };
@@ -52,7 +56,7 @@ const removeGastos = async (req, res) => {
         console.log(error);
         return res.status(500).json({
             ok: false,
-            error: 'error',
+            error: 'Error'
         });
     }
 };
@@ -61,5 +65,5 @@ export const gastosController = {
     allGastos,
     createGastos,
     updateGastos,
-    removeGastos,
+    removeGastos
 };
