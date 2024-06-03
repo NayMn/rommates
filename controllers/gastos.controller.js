@@ -1,71 +1,65 @@
-import { gastosModel } from "../models/gastos.model.js";
+import { gastosModel } from '../models/gastos.model.js';
 
 const allGastos = async (req, res) => {
     try {
-        const gasto = await gastosModel.gastosAll()
-        return res.status(200).json(gasto)
-
+        const gasto = await gastosModel.gastosAll();
+        return res.status(200).json(gasto);
     } catch (error) {
-        console.log(error)
+        console.log(error);
         return res.status(500).json({
             ok: false,
-            error: 'no se pueden obtener gastos'
-        })
+            error: 'error',
+        });
     }
-}
+};
 
 const createGastos = async (req, res) => {
-    const { } = req.body
+    const { roommate_id, descripcion, monto } = req.body;
 
     try {
-        const gastoNew = await gastosModel.gastosAdd()
-        return res.status(200).json(gastoNew)
-
-
+        const gastoNew = await gastosModel.gastosAdd(roommate_id, descripcion, monto);
+        return res.status(200).json(gastoNew);
     } catch (error) {
-        console.log(error)
+        console.log(error);
         return res.status(500).json({
             ok: false,
-            error: 'no se pueden obtener gastos'
-        })
+            error: 'error',
+        });
     }
-}
+};
 
 const updateGastos = async (req, res) => {
+    const { id, roommate_id, descripcion, monto } = req.body;
     try {
-        const { id } = req.query
-        const { nombre, descripcion, monto } = req.body
-        const gastoUp = await gastosModel.gastosUpdate(id, nombre, descripcion, monto)
-        return res.status(200).json(gastoUp)
-
+        const gastoUp = await gastosModel.gastosUpdate(id, roommate_id, descripcion, monto);
+        return res.status(200).json(gastoUp);
     } catch (error) {
-        console.log(error)
+        console.log(error);
         return res.status(500).json({
             ok: false,
-            error: 'no se pueden obtener gastos'
-        })
+            error: 'error',
+        });
     }
-}
+};
 
 const removeGastos = async (req, res) => {
-    try {
-        const { id } = req.query
-        const gastoRe = await gastosModel.gastosRemove(id)
-        return res.status(200).json(gastoRe)
+    const { id } = req.query;
 
+    try {
+        const gastoRe = await gastosModel.gastosRemove(id);
+        return res.status(200).json(gastoRe);
     } catch (error) {
-        console.log(error)
+        console.log(error);
         return res.status(500).json({
             ok: false,
-            error: 'no se pueden obtener gastos'
-        })
-
+            error: 'error',
+        });
     }
-}
+};
 
 export const gastosController = {
     allGastos,
     createGastos,
     updateGastos,
-    removeGastos
-}
+    removeGastos,
+};

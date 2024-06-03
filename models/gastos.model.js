@@ -1,46 +1,48 @@
 import { pool } from '../database/connection.js'
-import { v4 as uuidv4 } from 'uuid'
 
 const gastosAll = async () => {
     const querysql = {
-        text: ,
+        text: 'SELECT * FROM gastos',
     }
-}
-
-const gastosById = async () => {
-    const querysql = {
-        text: ,
-        values: ,
-    }
+    const { rows } = pool.query(querysql)
+    return rows
 }
 
 const gastosAdd = async () => {
     const querysql = {
-        text: ,
-        values: ,
+        text: 'INSERT INTO gastos (roommate_id, descripcion, monto) VALUES ($1, $2, $3) RETURNING *',
+        values: [roommate_id, descripcion, monto]
     }
+    const { rows } = pool.query(querysql)
+    return rows[0]
 }
-
-
 
 const gastosUpdate = async () => {
     const querysql = {
-        text: ,
-        values: ,
+        text: 'UPDATE gastos SET roommate_id = $1, descripcion = $2, monto = $3 WHERE id = $4 RETURNING *;',
+        values: [roommate_id, descripcion, monto, id]
     }
+    const { rows } = pool.query(querysql)
+    return rows[0]
 }
+
 
 
 const gastosRemove = async () => {
     const querysql = {
-        text: ,
-        values: ,
+        text: 'DELETE FROM gastos WHERE id = $1 RETURNING *;',
+        values: [id],
+
     }
+    const { rows } = pool.query(querysql)
+    return rows[0]
 }
+
+
+
 
 export const gastosModel = {
     gastosAll,
-    gastosById,
     gastosAdd,
     gastosUpdate,
     gastosRemove
